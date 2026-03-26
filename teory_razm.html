@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Основы Python: переменные, условия, циклы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f8fafc 0%, #eef2f5 100%);
+            font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            line-height: 1.55;
+            color: #1e293b;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(0px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 2rem 1.8rem;
+            transition: all 0.2s;
+        }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 1rem 0.75rem;
+            }
+            .container {
+                padding: 1.5rem 1.2rem;
+            }
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            background: linear-gradient(135deg, #0f2b3d, #1e6f5c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+            border-left: 6px solid #1e6f5c;
+            padding-left: 1.2rem;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.75rem;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin: 1.8rem 0 1rem 0;
+            color: #0f2b3d;
+            display: inline-block;
+            background: linear-gradient(to right, #d9f0ec, transparent);
+            padding: 0.2rem 1rem 0.2rem 0.8rem;
+            border-radius: 0 40px 40px 0;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.8rem 0;
+            color: #2c3e50;
+            border-left: 4px solid #2c9b8e;
+            padding-left: 0.9rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .important-note {
+            background: #fef9e3;
+            border-left: 5px solid #f4b942;
+            padding: 0.9rem 1.2rem;
+            border-radius: 1rem;
+            margin: 1.2rem 0;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem 1.2rem;
+            border-radius: 1.2rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin: 1.2rem 0;
+            box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #2d3a5e;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            background: #eef2ff;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.5rem;
+            font-size: 0.9em;
+            color: #0f172a;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        .task-box {
+            background: #eef6f0;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin: 1.8rem 0;
+            border: 1px solid #cbdcd0;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+        }
+
+        .task-box h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #1e4620;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            background: #ffffff;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            border: 1px solid #d1d9e8;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #e9f2f0;
+            font-weight: 600;
+            color: #1e4a3b;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #cbd5e1, #94a3b8, #cbd5e1);
+        }
+
+        .bonus {
+            background: linear-gradient(120deg, #fef9e6, #fff8eb);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid #ffe5b4;
+        }
+
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5b6e8c;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.8rem;
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.3rem; }
+            .container { padding: 1.2rem; }
+            pre { font-size: 0.8rem; }
+        }
+
+        .emoji {
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Основы программирования на Python</h1>
+    <div class="subhead">Три урока: переменные, условия, циклы — для начинающих школьников 🐍✨</div>
+
+    <!-- Урок 1: Переменные -->
+    <section>
+        <h2>📦 Урок 1. Переменные</h2>
+        <h3>Что такое переменная?</h3>
+        <p>Представь, что у тебя есть <strong>коробка с наклейкой</strong>. На наклейке написано имя коробки (например, <code>age</code>), а внутри лежит какое-то значение (например, число 12). В программировании переменная — это именно такая именованная коробка для данных.</p>
+        <p>Компьютер выделяет для неё маленький кусочек памяти, и мы можем в любой момент положить туда новое значение или достать старое.</p>
+
+        <h3>Создание переменной (присваивание)</h3>
+        <p>Чтобы создать переменную, нужно написать её имя, поставить знак <code>=</code> (это оператор присваивания) и указать значение.</p>
+        <pre><code class="language-python">age = 12</code></pre>
+        <div class="important-note">
+            ⚡ <strong>Важно:</strong> знак <code>=</code> не означает «равно» в математическом смысле. Он означает <strong>«положи в переменную то, что справа»</strong>.
+        </div>
+
+        <h3>Типы данных</h3>
+        <p>В Python переменные могут хранить разные типы данных. Самые популярные:</p>
+        <ul>
+            <li><strong>int</strong> (целое число) — например, <code>10</code>, <code>-5</code>, <code>42</code></li>
+            <li><strong>str</strong> (строка, текст) — обязательно в кавычках: <code>"Hello"</code>, <code>'Python'</code></li>
+            <li><strong>bool</strong> (логическое значение) — только <code>True</code> (истина) или <code>False</code> (ложь)</li>
+        </ul>
+        <pre><code class="language-python">name = "Olya"           # str
+height = 150            # int
+is_student = True       # bool</code></pre>
+        <p>Обрати внимание: имена переменных чувствительны к регистру — <code>name</code> и <code>Name</code> — это разные переменные.</p>
+
+        <h3>Как использовать переменные?</h3>
+        <p>Переменные можно: выводить на экран, складывать/вычитать/умножать (если это числа), объединять строки, изменять присваиванием.</p>
+        <pre><code class="language-python"># Вывод
+print(name)            # Olya
+
+# Математика
+petya_age = 10
+masha_age = 12
+total_age = petya_age + masha_age
+print(total_age)       # 22
+
+# Работа со строками
+greeting = "Hello, " + name + "!"
+print(greeting)        # Hello, Olya!
+
+# Изменение значения
+petya_age = 11         # теперь в переменной 11</code></pre>
+
+        <h3>Имена переменных: правила и советы</h3>
+        <ul>
+            <li>Имя должно быть <strong>осмысленным</strong>: <code>apple_count</code> лучше, чем <code>x</code>.</li>
+            <li>Состоит из букв, цифр и нижнего подчёркивания <code>_</code>.</li>
+            <li>Не может начинаться с цифры: <code>2variable</code> — нельзя.</li>
+            <li>Нельзя использовать ключевые слова Python (например, <code>if</code>, <code>for</code>, <code>while</code>).</li>
+            <li>Если имя длинное, используйте <code>_</code> для разделения слов: <code>current_score</code>.</li>
+            <li>Принято писать имена переменных строчными буквами (lowercase).</li>
+        </ul>
+
+        <div class="task-box">
+            <h4>✏️ Задание</h4>
+            <ol>
+                <li>Создай переменную <code>city</code> и запиши туда название своего города.</li>
+                <li>Создай переменную <code>temperature</code> и запиши туда число (например, <code>20</code>).</li>
+                <li>Создай переменную <code>message</code>, которая будет хранить строку: <code>"In the city " + city + " it is " + str(temperature) + " degrees."</code><br>
+                <em>Обрати внимание: число нужно превратить в строку с помощью <code>str()</code>.</em></li>
+                <li>Выведи <code>message</code> на экран.</li>
+            </ol>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- Урок 2: Условные конструкции -->
+    <section>
+        <h2>🚦 Урок 2. Условные конструкции</h2>
+        <h3>Зачем нужно условие?</h3>
+        <p>В жизни мы постоянно принимаем решения: «если идёт дождь, то возьму зонт, иначе не возьму». В программировании то же самое — программа может выполнять разные действия в зависимости от данных.</p>
+
+        <h3>Конструкция <code>if</code> (если)</h3>
+        <p>Самая простая форма — <code>if</code>. Если условие истинно (равно <code>True</code>), код внутри выполняется; если ложно (<code>False</code>) — пропускается.</p>
+        <pre><code class="language-python">if condition:
+    # этот код выполнится, если condition True</code></pre>
+        <p><strong>Важно:</strong> отступ (4 пробела или клавиша Tab) показывает, какой код относится к условию.</p>
+        <pre><code class="language-python">temperature = 25
+if temperature > 20:
+    print("It's warm outside! ☀️")
+# Код после отступа закончился, дальше выполняется всегда
+print("Check completed")</code></pre>
+
+        <h3>Конструкция <code>if-else</code> (если-иначе)</h3>
+        <p>Если нужно выполнить одно действие при истинном условии, а другое — при ложном, используем <code>else</code>.</p>
+        <pre><code class="language-python">temperature = 10
+if temperature > 15:
+    print("You can go without a jacket. 🌞")
+else:
+    print("Better wear a jacket. 🧥")</code></pre>
+        <p>Здесь условие <code>temperature > 15</code> ложно, поэтому выполнится блок после <code>else</code>.</p>
+
+        <h3>Конструкция <code>if-elif-else</code> (много вариантов)</h3>
+        <p>Когда вариантов больше двух, используем <code>elif</code> (сокращение от «else if»). Проверки идут по порядку: как только какое-то условие оказывается истинным, его блок выполняется, а остальные пропускаются.</p>
+        <pre><code class="language-python">grade = 4
+
+if grade == 5:
+    print("Excellent! 🎉")
+elif grade == 4:
+    print("Good! 👍")
+elif grade == 3:
+    print("Could be better. 📚")
+else:
+    print("Need to improve. 💪")</code></pre>
+
+        <h3>Операторы сравнения</h3>
+        <table>
+            <thead>
+                <tr><th>Оператор</th><th>Значение</th><th>Пример (истина)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>==</code></td><td>равно</td><td><code>5 == 5</code></td></tr>
+                <tr><td><code>!=</code></td><td>не равно</td><td><code>5 != 3</code></td></tr>
+                <tr><td><code>&gt;</code></td><td>больше</td><td><code>10 &gt; 5</code></td></tr>
+                <tr><td><code>&lt;</code></td><td>меньше</td><td><code>3 &lt; 7</code></td></tr>
+                <tr><td><code>&gt;=</code></td><td>больше или равно</td><td><code>5 &gt;= 5</code></td></tr>
+                <tr><td><code>&lt;=</code></td><td>меньше или равно</td><td><code>4 &lt;= 5</code></td></tr>
+            </tbody>
+        </table>
+
+        <h3>Получение данных от пользователя</h3>
+        <p>Функция <code>input()</code> позволяет программе спросить что-то у пользователя. Она всегда возвращает строку (str). Если нужно число, используем <code>int()</code>.</p>
+        <pre><code class="language-python">name = input("What's your name? ")
+print("Hello, " + name + "!")
+
+age = int(input("How old are you? "))
+if age >= 18:
+    print("You are an adult.")
+else:
+    print("You are still a school student.")</code></pre>
+
+        <div class="task-box">
+            <h4>✏️ Задание</h4>
+            <ol>
+                <li>Спрашивает у пользователя его возраст (<code>input</code>).</li>
+                <li>Превращает ответ в число (<code>int</code>).</li>
+                <li>С помощью <code>if-elif-else</code> выводит:
+                    <ul>
+                        <li>«You can watch cartoons» — если возраст меньше 12,</li>
+                        <li>«You can watch educational videos» — если возраст от 12 до 17 (включительно),</li>
+                        <li>«All materials are available» — если возраст 18 и больше.</li>
+                    </ul>
+                </li>
+                <li>Если пользователь ввёл что-то не число, программа может выдать ошибку — пока мы это не обрабатываем.</li>
+            </ol>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- Урок 3: Циклы -->
+    <section>
+        <h2>🔁 Урок 3. Циклы</h2>
+        <h3>Зачем нужны циклы?</h3>
+        <p>Представь, что нужно 100 раз написать «I love Python». Писать 100 строк <code>print</code> — долго и скучно. Циклы позволяют повторить блок кода нужное количество раз или пока выполняется какое-то условие.</p>
+
+        <h3>Цикл <code>for</code> — повторение с известным числом шагов</h3>
+        <p>Чаще всего <code>for</code> используют с функцией <code>range()</code>. <code>range(n)</code> генерирует числа от 0 до n-1.</p>
+        <pre><code class="language-python">for i in range(5):
+    print("I love Python! 🐍")</code></pre>
+        <p>Выполнится 5 раз. Переменная <code>i</code> будет последовательно принимать значения 0, 1, 2, 3, 4. Даже если мы не используем <code>i</code> внутри цикла, она всё равно нужна для счёта.</p>
+        <p>Если нужно начать не с 0, а с другого числа, пишем <code>range(start, stop)</code>:</p>
+        <pre><code class="language-python">for counter in range(1, 6):
+    print("Count:", counter)</code></pre>
+        <p>Выведет:</p>
+        <pre><code>Count: 1
+Count: 2
+Count: 3
+Count: 4
+Count: 5</code></pre>
+        <p>Цикл <code>for</code> можно использовать не только с числами, но и для перебора элементов списка или символов строки — это мы изучим позже.</p>
+
+        <h3>Цикл <code>while</code> — повторение, пока условие истинно</h3>
+        <p>Цикл <code>while</code> проверяет условие перед каждым шагом. Если условие истинно — выполняет тело цикла, потом проверяет снова. Как только условие становится ложным, цикл заканчивается.</p>
+        <pre><code class="language-python">secret_word = "Python"
+guess = ""
+
+while guess != secret_word:
+    guess = input("Guess the secret word: ")
+    if guess != secret_word:
+        print("Wrong! Try again.")
+
+print("Congratulations! 🎉")</code></pre>
+        <p>В этом примере цикл будет выполняться, пока пользователь не введёт слово «Python». Количество повторений заранее неизвестно, поэтому <code>while</code> здесь подходит идеально.</p>
+
+        <h3>Опасность бесконечного цикла</h3>
+        <p>Если условие в <code>while</code> никогда не станет ложным, цикл будет крутиться вечно. Программа «зависнет». Чтобы этого избежать, убедись, что внутри цикла что-то изменяет условие (например, пользователь вводит данные, или переменная-счётчик увеличивается).</p>
+        <pre><code class="language-python"># Пример бесконечного цикла (НЕ ЗАПУСКАЙ!)
+x = 5
+while x > 0:
+    print("Infinite loop!")
+# Нет изменения x, условие всегда True</code></pre>
+        <p>Правильно будет добавить изменение переменной:</p>
+        <pre><code class="language-python">x = 5
+while x > 0:
+    print("Steps left:", x)
+    x = x - 1   # уменьшаем x, чтобы условие стало ложным</code></pre>
+
+        <div class="task-box">
+            <h4>✏️ Задание</h4>
+            <ol>
+                <li>Спрашивает у пользователя, сколько раз поздороваться (используй <code>int(input())</code>).</li>
+                <li>Если пользователь ввёл число больше 0, программа с помощью цикла <code>for</code> выводит столько раз «Hello, friend! 😊».</li>
+                <li>После цикла выводит сообщение «Done!».</li>
+                <li>Если пользователь ввёл 0 или отрицательное число, программа выводит «Invalid number» и завершается (без цикла).</li>
+            </ol>
+        </div>
+    </section>
+
+    <div class="bonus">
+        <h3 style="margin-top:0;">🔍 Бонус: для самых любопытных</h3>
+        <p>Попробуй объединить все три темы в одной программе. Например, напиши мини-игру:</p>
+        <ul>
+            <li>Переменная хранит загаданное число.</li>
+            <li>Цикл <code>while</code> просит пользователя угадать.</li>
+            <li>Внутри цикла условие <code>if</code> проверяет, больше или меньше введённое число.</li>
+            <li>Когда угадал — выходим из цикла.</li>
+        </ul>
+        <p>Так ты увидишь, как переменные, условия и циклы работают вместе! 😎</p>
+    </div>
+
+    <footer>
+        🐍 Удачи в программировании! Python ждёт твоих идей. 💻✨<br>
+        <span style="font-size:0.75rem;">Три урока с английскими переменными — чистый код и ясные объяснения</span>
+    </footer>
+</div>
+</body>
+</html>
